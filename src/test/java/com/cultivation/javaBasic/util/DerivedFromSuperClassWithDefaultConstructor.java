@@ -15,3 +15,4 @@ public class DerivedFromSuperClassWithDefaultConstructor extends SuperClassWithD
         addLog("DerivedFromSuperClassWithDefaultConstructor.constructor(String)");
     }
 }
+

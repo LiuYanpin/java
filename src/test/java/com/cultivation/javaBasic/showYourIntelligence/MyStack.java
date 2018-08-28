@@ -26,7 +26,7 @@ public class MyStack {
 
         // TODO: Please push the value into the storage here.
         // <--start
-        throw new NotImplementedException();
+        storage[count++] = value;
         // --end-->
     }
 
@@ -36,7 +36,15 @@ public class MyStack {
         // TODO: Please create a new array of size newCapacity. And update related fields
         // TODO: You SHOULD NOT USE COLLECTIONS OTHER THAN ARRAY.
         // <--start
-        throw new NotImplementedException();
+        int[] extended = new int[newCapacity];
+        System.arraycopy(storage, 0, extended, 0, capacity);
+        //src:源数组；	srcPos:源数组要复制的起始位置；
+        //dest:目的数组；	destPos:目的数组放置的起始位置；	length:复制的长度。
+        storage = extended;
+        extended = null;
+        capacity = newCapacity;
+        //return;
+        //throw new NotImplementedException();
         // --end-->
     }
 
@@ -54,8 +62,10 @@ public class MyStack {
     private int pop() {
         // TODO: Please pop one element from the array.
         // <--start
+        int result = storage[--count];
+        return result;
         // --end-->
 
-        throw new UnsupportedOperationException("Stack is empty.");
+        //throw new UnsupportedOperationException("Stack is empty.");
     }
 }

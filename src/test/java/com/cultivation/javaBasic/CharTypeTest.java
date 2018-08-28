@@ -7,16 +7,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class CharTypeTest {
     @Test
-    void should_describe_escaped_chars() {
+    void should_describe_escaped_chars() {//转义字符
         // TODO: please modify the following code to pass the test
         // <--start
-        final char backspace = ' ';
-        final char tab = ' ';
-        final char lineFeed = ' ';
-        final char carriageReturn = ' ';
-        final char doubleQuote = ' ';
-        final char singleQuote = ' ';
-        final char backslash = ' ';
+        final char backspace = '\b';
+        final char tab = '\t';
+        final char lineFeed = '\n';
+        final char carriageReturn = '\r';
+        final char doubleQuote = '\"';
+        final char singleQuote = '\'';
+        final char backslash = '\\';
         // --end-->
 
         assertEquals(EscapedChars.BACKSPACE.getValue(), backspace);
@@ -30,8 +30,9 @@ class CharTypeTest {
 
     /*
      * - Could a char represent one unicode character? Or, in other words, could a char represent a code point?
+     * !==,16-1-2,8-1,2,3,32-4
      * - How many bits are needed to represents one code point in UTF-16? What about UTF-8 and UTF-32?
-     * - In Java, which encoding is used by char type? The UTF-16 encoding or UTF-8 encoding.
+     * - In Java, which encoding is used by char type? The UTF-16 encoding or UTF-8 encoding.16
      * - Why there are many methods in Character class accepting an int parameter rather than char?
      */
 }

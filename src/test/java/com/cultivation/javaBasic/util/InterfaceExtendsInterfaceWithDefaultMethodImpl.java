@@ -6,3 +6,13 @@ public class InterfaceExtendsInterfaceWithDefaultMethodImpl implements Interface
         return "Game";
     }
 }
+class Whatever {
+    String getMessage() {
+        return null;
+    }
+
+    Object getMessage(int i) {
+        return new Object();
+    }
+}
+

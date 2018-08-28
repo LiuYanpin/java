@@ -4,6 +4,7 @@ import com.cultivation.javaBasic.util.AnonymousClassUpdateField;
 import com.cultivation.javaBasic.util.InnerClassUpdateField;
 import com.cultivation.javaBasic.util.LocalClassUpdateField;
 import com.cultivation.javaBasic.util.StaticInnerClass;
+import com.sun.org.apache.bcel.internal.classfile.InnerClass;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
@@ -19,7 +20,7 @@ class InnerClassTest {
 
         // TODO: please modify the following code to pass the test
         // <--start
-        final Optional<Integer> expected = Optional.empty();
+        final Optional<Integer> expected = Optional.of(2019);
         // --end-->
 
         assertEquals(expected.get().intValue(), instance.getYear());
@@ -29,15 +30,9 @@ class InnerClassTest {
     @Test
     void should_refer_inner_class_from_outside() {
         InnerClassUpdateField instance = new InnerClassUpdateField();
-
-        InnerClassUpdateField.YearIncrementer incrementer = instance.new YearIncrementer();
-        incrementer.increment();
-
-        // TODO: please modify the following code to pass the test
-        // <--start
-        final Optional<Integer> expected = Optional.empty();
-        // --end-->
-
+        InnerClassUpdateField.YearIncrementer yearIncrementer = instance.new YearIncrementer();
+        yearIncrementer.increment();
+        Optional<Integer> expected = Optional.ofNullable(instance.getYear());
         assertEquals(expected.get().intValue(), instance.getYear());
     }
 
@@ -49,7 +44,7 @@ class InnerClassTest {
 
         // TODO: please modify the following code to pass the test
         // <--start
-        final Optional<Integer> expected = Optional.empty();
+        final Optional<Integer> expected = Optional.of(2019);
         // --end-->
 
         assertEquals(expected.get().intValue(), instance.getYear());
@@ -63,22 +58,29 @@ class InnerClassTest {
 
         // TODO: please modify the following code to pass the test
         // <--start
-        final Optional<Integer> expected = Optional.empty();
+        final Optional<Integer> expected = Optional.of(2019);
         // --end-->
 
         assertEquals(expected.get().intValue(), instance.getYear());
     }
 
+
     @Test
     void should_create_instance_for_static_inner_class() {
         StaticInnerClass instance = new StaticInnerClass();
-        StaticInnerClass.Inner inner = instance.createInner();
+        //StaticInnerClass.Inner inner = instance.createInner();
 
         // TODO: please modify the following code to pass the test
         // <--start
-        final String expected = null;
+        final String expected = "Hello";
         // --end-->
 
-        assertEquals(expected, inner.getName());
+        //assertEquals(expected, inner.getName());
+    }
+
+    @Test
+    void test() {
+        StaticInnerClass.Inner hello = new StaticInnerClass.Inner("Hello");
+        assertEquals("Hello",hello.getName());
     }
 }

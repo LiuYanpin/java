@@ -13,13 +13,16 @@ public class AnonymousClassUpdateField {
 
     @SuppressWarnings("Convert2Lambda")
     public void somethingHappen() {
-        Runnable increment = new Runnable() {
+        /*Runnable increment = new Runnable() {
             @Override
             public void run() {
                 year++;
             }
         };
 
-        increment.run();
+        increment.run();*/
+        Runnable runnable = (() -> year++);
+        runnable.run();
+        //最小访问原则，减少消耗
     }
 }

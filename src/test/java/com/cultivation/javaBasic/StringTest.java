@@ -3,7 +3,9 @@ package com.cultivation.javaBasic;
 import org.junit.jupiter.api.Test;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import java.util.Arrays;
 import java.util.Optional;
+import java.util.zip.Checksum;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -14,16 +16,23 @@ class StringTest {
     void should_be_immutable() {
         String originalString = "The original string";
         String modifiedString = originalString.replace("original", "new");
-
+        System.out.println(modifiedString);
         // TODO: Please modify the following line to pass the test.
         //
         // It is really easy to pass the test. But you have to tell why.
         // <--start
-        final Optional<Boolean> areSame = Optional.empty();
+        //final Optional<Boolean> areSame = Optional.empty();
+        final Optional<Boolean> areSame = Optional.of(false);
         // --end-->
 
         assertEquals("The new string", modifiedString);
         assertEquals(areSame.get(), originalString == modifiedString);
+    }
+
+    @Test
+    void should_equal(){
+    //ss
+        assertEquals(true,"He"=="He");
     }
 
     @SuppressWarnings({"StringEquality", "ConstantConditions"})
@@ -36,7 +45,7 @@ class StringTest {
         //
         // It is really easy to pass the test. But you have to tell why.
         // <--start
-        final Optional<Boolean> areSame = Optional.empty();
+        final Optional<Boolean> areSame = Optional.of(false);
         // --end-->
 
         assertEquals("The string with tailing space.", modifiedString);
@@ -54,11 +63,10 @@ class StringTest {
         //
         // It is really easy to pass the test. But you have to tell why.
         // <--start
-        final Optional<Boolean> areSame = Optional.empty();
+        final Optional<Boolean> areSame = Optional.of(false);
         // --end-->
-
         assertEquals("Part one. Part two.", originalString);
-        assertEquals(areSame.get(), originalString == copyOfOriginalString);
+        assertEquals(areSame.get(), originalString == copyOfOriginalString);//false
     }
 
     @SuppressWarnings("unused")
@@ -68,7 +76,7 @@ class StringTest {
 
         // TODO: Take part of the original string according to expectation.
         // <--start
-        final String partOfString = null;
+        final String partOfString = originalString.substring(5);
         // --end-->
 
         final String expectedString = "is great";
@@ -83,7 +91,7 @@ class StringTest {
 
         // TODO: Take part of the original string according to expectation.
         // <--start
-        final String partOfString = null;
+        final String partOfString = originalString.substring(5,7);
         // --end-->
 
         final String expectedString = "is";
@@ -98,17 +106,25 @@ class StringTest {
      * - What will happen if the the starting index is greater than the ending index?
      * - What will happen if the input string is of null reference?
      */
+    @Test
+    void should_substring_result() {
+        String str;
+        String str1 = null;
+        str1.length();
+        //final String str2 = str2.substring(1,5);
+        //System.out.println(str1);
+        //str1.aa();
+    }
 
     @SuppressWarnings({"unused", "ConstantConditions"})
     @Test
     void should_break_string_into_words() {
-        final String sentence = "This is Mike";
+        final String sentence = "This  is Mike";
 
         // TODO: Extract words in the sentence.
         // <--Start
-        String[] words = null;
+        String[] words = sentence.split(" ");
         // --End-->
-
         assertArrayEquals(new String[] {"This", "is", "Mike"}, words);
     }
 
@@ -119,7 +135,7 @@ class StringTest {
 
         // TODO: Extract words in the sentence.
         // <--Start
-        String[] words = null;
+        String[] words = sentence.split("/");
         // --End-->
 
         assertArrayEquals(new String[] {"This", "is", "Mike"}, words);
@@ -152,7 +168,13 @@ class StringTest {
         int sum = 0;
         // TODO: Write some code to calculate the checksum of the string. The checksum is the sum of each string char.
         // <--Start
+        int i = 0;
+        while (i < text.length()) {
+            sum += text.charAt(i);
+            i++;
+        }
         // --End-->
+
 
         assertEquals(3655, sum);
     }
@@ -167,7 +189,7 @@ class StringTest {
         // こ - U+3053
         // れ - U+308c
         // <--Start
-        final String actual = null;
+        final String actual = "\u306a\u306b\u3053\u308c";
         // --End-->
 
         assertEquals(expected, actual);
@@ -180,7 +202,7 @@ class StringTest {
 
         // TODO: Modify the following code to create new string from original String
         // <--Start
-        final String reversed = null;
+        final String reversed = new StringBuilder(original).reverse().toString();
         // --End-->
 
         assertEquals("654321", reversed);
@@ -197,8 +219,8 @@ class StringTest {
 
         // TODO: Please change the value of the following 2 lines to pass the test.
         // <--start
-        Optional<Boolean> actualResultOfEqual = Optional.empty();
-        Optional<Boolean> actualResultOfEqualIgnoreCase = Optional.empty();
+        Optional<Boolean> actualResultOfEqual = Optional.of(false);
+        Optional<Boolean> actualResultOfEqualIgnoreCase = Optional.of(true);
         // --end-->
 
         assertEquals(equalResult, actualResultOfEqual);
@@ -213,11 +235,10 @@ class StringTest {
         // TODO: please modify the following code to pass the test
         // <--start
         // TODO: please write down the result directly.
-        final int expectedCharLength = 0;
+        final int expectedCharLength = 39;
         // TODO: please call some method to calculate the result.
-        final int actualCodePointLength = 0;
+        final int actualCodePointLength = withSurrogatePairs.codePointCount(0, withSurrogatePairs.length());
         // --end-->
-
         assertEquals(expectedCharLength, withSurrogatePairs.length());
         assertEquals(38, actualCodePointLength);
     }
@@ -228,7 +249,6 @@ class StringTest {
             new String(Character.toChars(0x20B9F)) + " is funny";
 
         final int[] codePoints = getCodePointsFromString(withSurrogatePairs);
-
         assertArrayEquals(
             new int[] {0x20B9F, (int)' ', (int)'i', (int)'s', (int)' ', (int)'f', (int)'u', (int)'n', (int)'n', (int)'y'},
             codePoints);
@@ -240,10 +260,9 @@ class StringTest {
         final int age = 23;
 
         String text = String.format("Hello, %s. Next year, you will be %d.", name, age);
-
         // TODO: please modify the following code to pass the test
         // <--start
-        final String expectedText = null;
+        final String expectedText = "Hello, Harry. Next year, you will be 23.";
         // --end-->
 
         assertEquals(expectedText, text);
@@ -252,8 +271,24 @@ class StringTest {
     private int[] getCodePointsFromString(String withSurrogatePairs) {
         // TODO: please implement the method to the pass the test
         // <--start
-        throw new NotImplementedException();
+        int len = withSurrogatePairs.codePointCount(0, withSurrogatePairs.length());
+        int[] result = new int[len];
+        try {
+            for (int i = 0; i < len; i++){
+                result[i] = withSurrogatePairs.codePointAt(i);
+            }
+            //System.out.println(new int[] {0x20B9F, (int)' ', (int)'i', (int)'s', (int)' ', (int)'f', (int)'u', (int)'n', (int)'n', (int)'y'});
+            Arrays.asList(result).stream().forEach(s -> System.out.println(s));
+            return result;
+        }catch (Exception e){
+            throw e;
+        }finally {
+            throw new NotImplementedException();
+        }
+        //
+        //withSurrogatePairs.codePoints().toArray();
         // --end-->
+
     }
 
     /*
@@ -271,4 +306,8 @@ class StringTest {
      *   * h - hash code
      *   * n - platform dependent line separator
      */
+
+    //test varargs
+
+
 }

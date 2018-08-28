@@ -10,6 +10,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ExceptionTest {
     @Test
@@ -39,7 +40,7 @@ class ExceptionTest {
 
         // TODO: please modify the following code to pass the test
         // <--start
-        final int expectedResult = Integer.MAX_VALUE;
+        final int expectedResult = 0;
         // --end-->
 
         assertEquals(expectedResult, confusedResult);
@@ -56,11 +57,29 @@ class ExceptionTest {
 
         // TODO: please modify the following code to pass the test
         // <--start
-        final Optional<Boolean> expected = Optional.empty();
+        final Optional<Boolean> expected = Optional.of(true);
         // --end-->
 
         assertEquals(expected.get(), closableStateReference.isClosed());
     }
+/*    @Test
+
+    void should_throw_exception() {
+        boolean done1 = false;
+        boolean done2 = false;
+        try (MyClosableException myClosableException = new MyClosableException(1);
+             MyClosableWithoutException myClosableWithoutException = new MyClosableWithoutException(2);
+        ){
+            done1 = myClosableException.isDone();
+            done2 = myClosableWithoutException.isDone();
+        } catch (Exception e) {
+            e.printStackTrace();
+            e.getSuppressed();
+        }
+        System.out.println("done1 = " + done1);
+        System.out.println("done2 = " + done2);
+
+    }*/
 
     @Test
     void should_get_method_name_in_stack_frame() {
@@ -74,8 +93,8 @@ class ExceptionTest {
     @SuppressWarnings({"ReturnInsideFinallyBlock", "SameParameterValue"})
     private int confuse(int value) {
         try {
-            return value * value;
-        } finally {
+            return value / 0;
+        }finally {
             if (value == 2) {
                 return 0;
             }

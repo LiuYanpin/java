@@ -3,6 +3,8 @@ package com.cultivation.javaBasic;
 import com.cultivation.javaBasic.showYourIntelligence.MyStack;
 import org.junit.jupiter.api.Test;
 
+import java.util.Stack;
+
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 class ArrayTest {
@@ -10,7 +12,7 @@ class ArrayTest {
     void should_resize_array() {
         final int itemsCount = 25;
         final int initialCapacity = 10;
-
+        Stack stack = new Stack();
         MyStack myStack = new MyStack(initialCapacity);
         for (int i = 0; i < itemsCount; ++i) {
             myStack.push(i);

@@ -3,11 +3,14 @@ package com.cultivation.javaBasic;
 import com.cultivation.javaBasic.util.*;
 import org.junit.jupiter.api.Test;
 
+import java.lang.reflect.Array;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ObjectTest {
     @SuppressWarnings({"UnnecessaryLocalVariable", "ConstantConditions"})
@@ -20,7 +23,7 @@ class ObjectTest {
 
         // TODO: please modify the following code to pass the test
         // <--start
-        final Optional<Boolean> expected = Optional.empty();
+        final Optional<Boolean> expected = Optional.of(true);
         // --end-->
 
         assertEquals(expected.get(), referenceToSameObject);
@@ -33,10 +36,9 @@ class ObjectTest {
         LocalDate sameDay = LocalDate.of(2018, 5, 10);
 
         final boolean referenceToSameObject = goodDay == sameDay;
-
         // TODO: please modify the following code to pass the test
         // <--start
-        final Optional<Boolean> expected = Optional.empty();
+        final Optional<Boolean> expected = Optional.of(false);
         // --end-->
 
         assertEquals(expected.get(), referenceToSameObject);
@@ -49,11 +51,10 @@ class ObjectTest {
 
         // TODO: please modify the following code to pass the test
         // <--start
-        final String expectedName = "What";
-        final int expectedYearOfBirth = 479;
-        final LocalDate expectedRegisteredDate = LocalDate.now();
+        final String expectedName = null;
+        final int expectedYearOfBirth = 0;
+        final LocalDate expectedRegisteredDate = null;
         // --end-->
-
         assertEquals(expectedName, instance.getName());
         assertEquals(expectedYearOfBirth, instance.getYearOfBirth());
         assertEquals(expectedRegisteredDate, instance.getRegisteredDate());
@@ -67,7 +68,7 @@ class ObjectTest {
 
         // TODO: please modify the following code to pass the test
         // <--start
-        final int expected = 0;
+        final int expected = 5;
         // --end-->
 
         assertEquals(expected, value);
@@ -81,15 +82,14 @@ class ObjectTest {
     @SuppressWarnings({"UnnecessaryLocalVariable", "unused"})
     @Test
     void should_pass_by_value_continued() {
-        Object objectReference = new Object();
-        final Object sameReference = objectReference;
-
-        Object instanceCreatedByMethod = tryingToUpdateReference(objectReference);
-
+        Object objectReference = new Object();//堆里堆数据表示
+        final Object sameReference = objectReference;//final
+        Object instanceCreatedByMethod = tryingToUpdateReference(objectReference);//引用
+        //sameReference=objectReference=objectReference
         // TODO: please modify the following code to pass the test.
         // You can only choose from `sameReference` and `instanceCreatedByMethod`
         // <--start
-        final Object expected = null;
+        final Object expected = sameReference;
         // --end-->
 
         assertEquals(expected, objectReference);
@@ -103,7 +103,7 @@ class ObjectTest {
 
         // TODO: please modify the following code to pass the test
         // <--start
-        final String expected = null;
+        final String expected = "Updated Name";
         // --end-->
 
         assertEquals(expected, instance.getName());
@@ -117,7 +117,7 @@ class ObjectTest {
 
         // TODO: please modify the following code to pass the test. You should write the result directly.
         // <--start
-        final String expected = null;
+        final String expected = "methodWithOneParameter(Object)";
         // --end-->
 
         assertEquals(expected, actual);
@@ -129,14 +129,22 @@ class ObjectTest {
         final String name = "name";
         final int integer = 2;
 
-        String actual = fixture.methodWithTwoParameters(name, integer);
+        String actual = fixture.methodWithTwoParameters(name, integer);//
 
         // TODO: please modify the following code to pass the test. You should write the result directly.
         // <--start
-        final String expected = null;
+        final String expected = "methodWithTwoParameters(String, Integer)";
         // --end-->
 
         assertEquals(expected, actual);
+    }
+
+    @Test
+    void should_int_is_number() {
+        Integer i = 10;
+        Number n = 10;
+        System.out.println(i.getClass());
+        assertEquals(i.getClass(), n.getClass());
     }
 
     @Test
@@ -145,7 +153,7 @@ class ObjectTest {
 
         // TODO: please modify the following code to pass the test
         // <--start
-        final String expected = null;
+        final String expected = "Untitled";
         // --end-->
 
         assertEquals(expected, instance.getName());
@@ -153,17 +161,18 @@ class ObjectTest {
 
     @SuppressWarnings("unused")
     @Test
+    //
     void should_get_initialization_ordering() {
         InitializationOrderClass.resetLogs();
         InitializationOrderClass instance = new InitializationOrderClass();
         String[] logs = InitializationOrderClass.getLogs();
-
         // TODO: please modify the following code to pass the test
         // <--start
-        final String[] expected = {};
+        final String[] expected = {"Field Initializer", "Initialization Block",
+                "Constructor with argument", "Default constructor"};
         // --end-->
 
-        assertArrayEquals(expected, logs);
+        assertArrayEquals(expected, logs);//??
     }
 
     @Test
@@ -172,7 +181,9 @@ class ObjectTest {
 
         // TODO: please modify the following code to pass the test
         // <--start
-        final String expected = null;
+        final String expected = "1\n" +
+                "2\n" +
+                "3\n";
         // --end-->
 
         assertEquals(expected, message);
@@ -182,11 +193,11 @@ class ObjectTest {
     @SuppressWarnings("RedundantArrayCreation")
     @Test
     void should_get_message_of_var_length_parameters_2() {
-        final String message = getMessageOfVarLengthParameters(new Object[] {1, 2, 3});
+        final String message = getMessageOfVarLengthParameters("Hello",new Object[] {1, 2, 3}, "Hello");
 
         // TODO: please modify the following code to pass the test
         // <--start
-        final String expected = null;
+        final String expected = "1\n"+"2\n"+"3\n";
         // --end-->
 
         assertEquals(expected, message);
@@ -200,7 +211,17 @@ class ObjectTest {
 
         return builder.toString();
     }
+    @Test
+    void should_get_arguments() {
+        VarLength v1 = new VarLength();
+        String actual = v1.displayString("1", "2");
+        assertEquals("twoNumbers", actual);
 
+
+
+
+
+    }
     private static void tryingToUpdateState(SimpleObjectWithInternalState instance) {
         instance.setName("Updated Name");
     }

@@ -15,7 +15,7 @@ class FloatingTypeTest {
 
         // TODO: Please change the result to pass the test.
         // <!--start
-        final int expected = Integer.MAX_VALUE;
+        final int expected = 2;
         // --end-->
 
         assertEquals(expected, integer);
@@ -35,13 +35,17 @@ class FloatingTypeTest {
     }
 
     @Test
+    void should_result_of_isnan_be_nan(){
+        System.out.println(Double.isNaN(1/0.0));
+    }
+    @Test
     void should_not_round_number_when_convert_to_integer() {
         final float floatingPointNumber = 2.75f;
         final int integer = (int)floatingPointNumber;
 
         // TODO: Please change the result to pass the test.
         // <!--start
-        final int expected = Integer.MAX_VALUE;
+        final int expected = 2;
         // --end-->
 
         assertEquals(expected, integer);
@@ -54,7 +58,7 @@ class FloatingTypeTest {
 
         // TODO: Please call some method to round the floating point number.
         // <!--start
-        final long rounded = Long.MAX_VALUE;
+        final long rounded = Math.round(floatingPointNumber);
         // --end-->
 
         assertEquals(3L, rounded);
@@ -63,13 +67,17 @@ class FloatingTypeTest {
     @SuppressWarnings("unused")
     private boolean isNan(double realNumber) {
         // TODO: please implement the method to pass the test.
-        throw new NotImplementedException();
+        return Double.isNaN(realNumber);
+        //return (realNumber != realNumber);
+        //throw new NotImplementedException();
     }
 
     @SuppressWarnings("unused")
     private boolean isInfinity(double realNumber) {
+        return Double.isInfinite(realNumber);
         // TODO: please implement the method to pass the test.
-        throw new NotImplementedException();
+        //return (realNumber == Double.POSITIVE_INFINITY || realNumber == Double.NEGATIVE_INFINITY);
+        //throw new NotImplementedException();
     }
 
     /*

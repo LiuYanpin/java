@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+//https://www.ibm.com/developerworks/cn/java/j-lo-java8streamapi/index.html
 class StreamingTest {
     @SuppressWarnings("ConstantConditions")
     @Test
@@ -23,7 +23,16 @@ class StreamingTest {
 
         // TODO: please modify the following code to pass the test
         // <--start
-        Stream<String> wordStream = null;
+        Stream<String> wordStream = words.stream();
+        /*1. Individual values
+        Stream stream = Stream.of("a", "b", "c");
+        2. Arrays
+        String [] strArray = new String[] {"a", "b", "c"};
+        stream = Stream.of(strArray);
+        stream = Arrays.stream(strArray);
+        3. Collections
+        List<String> list = Arrays.asList(strArray);
+        stream = list.stream();*/
         // --end-->
         {
             assertIterableEquals(
@@ -40,7 +49,7 @@ class StreamingTest {
 
         // TODO: please modify the following code to pass the test
         // <--start
-        Stream<String> wordStream = null;
+        Stream<String> wordStream = Stream.of(words);
         // --end-->
         {
             assertArrayEquals(
@@ -55,7 +64,7 @@ class StreamingTest {
     void should_be_able_to_generate_empty_stream() {
         // TODO: please modify the following code to pass the test
         // <--start
-        Stream<String> emptyWordStream = null;
+        Stream<String> emptyWordStream = Stream.empty();
         // --end-->
         {
             assertEquals(0, emptyWordStream.count());
@@ -67,7 +76,7 @@ class StreamingTest {
     void should_be_able_to_generate_infinite_stream_with_same_items() {
         // TODO: please modify the following code to pass the test
         // <--start
-        Stream<String> infiniteEchos = null;
+        Stream<String> infiniteEchos = Stream.generate(() -> "Echo");
         // --end-->
         {
             assertEquals("Echo", infiniteEchos.skip(10000).findFirst().get());
@@ -79,7 +88,7 @@ class StreamingTest {
     void should_be_able_to_generate_infinite_stream_of_sequence() {
         // TODO: please modify the following code to pass the test
         // <--start
-        Stream<Integer> infiniteSequence = null;
+        Stream<Integer> infiniteSequence = Stream.iterate(0, n -> n + 1);
         // --end-->
         {
             assertEquals(10000, infiniteSequence.skip(10000).findFirst().get().intValue());
@@ -93,7 +102,7 @@ class StreamingTest {
 
         // TODO: please write code to filter word whose length is greater than 4
         // <--start
-        Stream<String> filtered = null;
+        Stream<String> filtered = wordStream.filter(word -> word.length() > 4);
         // --end-->
         {
             assertArrayEquals(new String[]{"quick", "brown", "jumps"}, filtered.toArray(String[]::new));
@@ -107,7 +116,7 @@ class StreamingTest {
 
         // TODO: please write code to filter word whose length is greater than 4
         // <--start
-        Stream<String> filtered = null;
+        Stream<String> filtered = wordStream.map(String::toUpperCase);
         // --end-->
         {
             assertArrayEquals(
@@ -123,7 +132,7 @@ class StreamingTest {
 
         // TODO: please modify the following code to pass the test
         // <--start
-        Stream<AnimeCharacter> characters = null;
+        Stream<AnimeCharacter> characters = nameStream.map(AnimeCharacter::new);
         // --end-->
         {
             AnimeCharacter[] actual = characters.toArray(AnimeCharacter[]::new);
@@ -165,7 +174,7 @@ class StreamingTest {
 
         // TODO: please modify the following code to pass the test
         // <--start
-        Stream<Integer> finiteStream = null;
+        Stream<Integer> finiteStream = infiniteSequence.limit(10);
         // --end-->
         {
             assertArrayEquals(
@@ -183,7 +192,7 @@ class StreamingTest {
 
         // TODO: please modify the following code to pass the test
         // <--start
-        Stream<Character> concatStream = null;
+        Stream<Character> concatStream = Stream.concat(helloStream, worldStream);
         // --end-->
         {
             assertArrayEquals(
@@ -200,7 +209,7 @@ class StreamingTest {
 
         // TODO: please modify the following code to pass the test
         // <--start
-        Stream<Character> distinct = null;
+        Stream<Character> distinct = characterStream.distinct();
         // --end-->
         {
             Character[] characters = distinct.sorted().toArray(Character[]::new);
@@ -227,7 +236,7 @@ class StreamingTest {
 
         // TODO: please modify the following code to pass the test
         // <--start
-        final int expected = 0;
+        final int expected = 90;
         // --end-->
 
         assertEquals(expected, holder.getValue().intValue());
@@ -238,8 +247,8 @@ class StreamingTest {
     void should_throws_if_get_value_of_empty_optional() {
         // TODO: please create an empty optional and specify the concrete exception type.
         // <--start
-        Optional<String> empty = null;
-        Class errorType = null;
+        Optional<String> empty = Optional.empty();
+        Class errorType = new NoSuchElementException().getClass();
         // --end-->
 
         assertThrows(errorType, empty::get);
@@ -264,7 +273,7 @@ class StreamingTest {
 
         // TODO: In the `Runnable` object. Please throw IllegalStateException when `empty` is not present.
         // <--start
-        Runnable emptyRunnable = null;
+        Runnable emptyRunnable = (() -> empty.orElseThrow(IllegalStateException::new));
         // --end-->
 
         assertThrows(IllegalStateException.class, emptyRunnable::run);
@@ -279,7 +288,11 @@ class StreamingTest {
         // TODO: please add the upper-cased value to result if `optional` is present in `Consumer<Optional<String>>`
         // TODO: implementation.
         // <--start
-        Consumer<Optional<String>> optionalConsumer = null;
+        Consumer<Optional<String>> optionalConsumer = (opt) -> {
+            if (opt.isPresent()){
+                result.add(opt.get().toUpperCase());
+            }
+        };
         // --end-->
 
         optionalConsumer.accept(optional);
@@ -299,7 +312,12 @@ class StreamingTest {
         // TODO: please add the upper-cased value to `result` list if optional is present. Then return the boolean
         // TODO: mapping result of `result.add`.
         // <--start
-        Function<Optional<String>, Optional<Boolean>> mapping = null;
+        Function<Optional<String>, Optional<Boolean>> mapping = (optionalS -> {
+            if (optionalS.isPresent()) {
+                result.add(optionalS.get().toUpperCase());
+            }
+            return Optional.ofNullable(Optional.of(optionalS.isPresent()).orElseThrow(IllegalStateException::new));
+        });
         // --end-->
 
         Optional<Boolean> mappingResult = mapping.apply(optional);
@@ -323,7 +341,11 @@ class StreamingTest {
         // TODO: The `findFirstAndGet` interface will find first item in stream. If it can be found, map it with
         // TODO: `YieldOptional.get` method. Otherwise, returns empty Optional.
         // <--start
-        Function<Stream<YieldOptional>, Optional<String>> findFirstAndGet = null;
+        Function<Stream<YieldOptional>, Optional<String>> findFirstAndGet = (optionalStream) -> {
+            return optionalStream.findFirst().map((yieldOptional) -> {
+                return yieldOptional.get();
+            }).orElseGet(() -> Optional.empty());
+        };
         // --end-->
 
         Optional<String> emptyStreamResult = findFirstAndGet.apply(emptyStream);
@@ -341,7 +363,8 @@ class StreamingTest {
 
         // TODO: please implement toList collector using `stream.collect`. You cannot use existing `toList` collector.
         // <--start
-        ArrayList<String> list = null;
+//        ArrayList<String> list = stream.collect(Collectors.toCollection(ArrayList::new));
+        ArrayList<String> list = (ArrayList<String>) stream.collect(Collectors.toList());
         // --end-->
 
         assertEquals(ArrayList.class, list.getClass());
@@ -352,6 +375,23 @@ class StreamingTest {
     }
 
     @SuppressWarnings({"ConstantConditions", "unused"})
+           /*Map<Integer, String> result1 = list.stream().collect(
+                Collectors.toMap(Hosting::getId, Hosting::getName));
+
+        System.out.println("Result 1 : " + result1);
+
+        // key = name, value - websites
+        Map<String, Long> result2 = list.stream().collect(
+                Collectors.toMap(Hosting::getName, Hosting::getWebsites));
+
+        System.out.println("Result 2 : " + result2);
+
+        // Same with result1, just different syntax
+        // key = id, value = name
+        Map<Integer, String> result3 = list.stream().collect(
+                Collectors.toMap(x -> x.getId(), x -> x.getName()));
+
+        System.out.println("Result 3 : " + result3);*/
     @Test
     void should_collect_to_map() {
         Stream<KeyValuePair<String, Integer>> stream = Stream.of(
@@ -362,7 +402,8 @@ class StreamingTest {
 
         // TODO: please implement toMap collector using `stream.collect`. You cannot use existing `toMap` collector.
         // <--start
-        HashMap<String, Integer> map = null;
+        //HashMap<String, Integer> map = stream.collect(Collectors.toMap(KeyValuePair::getKey, KeyValuePair::getValue),(k, v)-> v,);
+        HashMap<String, Integer> map = null;//stream.collect();
         // --end-->
 
         assertEquals(2, map.size());
@@ -402,7 +443,7 @@ class StreamingTest {
 
         // TODO: implement grouping collector using `stream.collect`. This time please use `Collectors.groupingBy`
         // <--start
-        Map<String, List<Integer>> map = null;
+        Map<String, List<Integer>> map = null;//stream.collect(Collectors.groupingBy(Function.identity()));
         // --end-->
 
         assertEquals(2, map.size());
@@ -461,7 +502,8 @@ class StreamingTest {
 
         // TODO: please modify the following code to pass the test
         // <--start
-        Optional<Integer> reduced = null;
+        Optional<Integer> reduced = Optional.ofNullable(numbers.stream().mapToInt(x -> x).reduce(0, Integer::sum));
+
         // --end-->
 
         //noinspection ConstantConditions
@@ -475,7 +517,7 @@ class StreamingTest {
 
         // TODO: please calculate the total number of characters using `reduce`.
         // <--start
-        Integer total = null;
+        Integer total = words.stream().map(x -> x.length()).reduce(0, Integer::sum);
         // --end-->
 
         assertEquals(15, total.intValue());
@@ -485,7 +527,7 @@ class StreamingTest {
     private static <T> T getValue(Optional<T> optional, T defaultValue) {
         // TODO: please implement the following method to pass the test
         // <--start
-        throw new NotImplementedException();
+        return optional.orElse(defaultValue);
         // --end-->
     }
 

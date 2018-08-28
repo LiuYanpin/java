@@ -5,7 +5,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.junitpioneer.jupiter.TempDirectory;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-import java.io.IOException;
+import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
@@ -26,19 +26,28 @@ class IOTest {
     @SuppressWarnings({"SameParameterValue", "unused", "RedundantThrows"})
     private static void writeAllText(String message, Path filePath, Charset charset) throws IOException {
         // TODO: please implement the method to writer text to file using `PrintWriter`.
-        // <--start
-        throw new NotImplementedException();
-        // --end-->
+        File file = new File(String.valueOf(filePath));
+        PrintWriter printWriter = new PrintWriter(file, charset.name());
+        printWriter.write(message);
+        printWriter.close();
     }
 
 
     @SuppressWarnings({"SameParameterValue", "unused", "RedundantThrows"})
     private static String readAllText(Path path, Charset charset) throws IOException {
         // TODO: please implement the method to read text from file using `Files` helper methods.
-        // <--start
-        throw new NotImplementedException();
-        // --end-->
+        InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(String.valueOf(path)), charset);
+        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+        StringBuilder stringBuilder = new StringBuilder();
+        String tempString;
+        while ((tempString = bufferedReader.readLine()) != null) {
+            stringBuilder.append(tempString);
+        }
+        stringBuilder.append("\n");
+        bufferedReader.close();
+        return new String(stringBuilder);
     }
+
 
     @SuppressWarnings({"unused", "RedundantThrows"})
     @Test
@@ -50,6 +59,9 @@ class IOTest {
 
         // TODO: please write `firstValue` and `pi` to `filePath`
         // <--start
+        DataOutputStream dataOutputStream = new DataOutputStream(new FileOutputStream(String.valueOf(filePath)));
+        dataOutputStream.writeInt(firstValue);
+        dataOutputStream.writeDouble(pi);
         // --end-->
 
         int actualFirstValue = 0;
@@ -57,6 +69,9 @@ class IOTest {
 
         // TODO: please read `actualFirstValue` and `actualPi` from `filePath`
         // <--start
+        DataInputStream dataInputStream = new DataInputStream(new FileInputStream(String.valueOf(filePath)));
+        actualFirstValue = dataInputStream.readInt();
+        actualPi = dataInputStream.readDouble();
         // --end-->
 
         assertEquals(firstValue, actualFirstValue);

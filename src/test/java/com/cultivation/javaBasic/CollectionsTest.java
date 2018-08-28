@@ -8,6 +8,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.*;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 
 class CollectionsTest {
@@ -18,26 +19,29 @@ class CollectionsTest {
         collection.add("World");
         collection.add("!");
         Iterator<String> iterator = collection.iterator();
-
         assertIterableEquals(Arrays.asList("Hello", "World", "!"), createList(iterator));
     }
 
     @SuppressWarnings({"unused", "UnnecessaryLocalVariable"})
     private static List<String> createList(Iterator<String> iterator) {
         List<String> list = new ArrayList<>();
-
-        // TODO: you could ONLY use `Iterator.hasNext` and `Iterator.next` API to copy items to a `List`. No `for` is
-        // allowed.
-        // <--start
-
-        // --end-->
-
+        while (iterator.hasNext()){
+            list.add(iterator.next());
+        }
         return list;
     }
 
     @Test
     void should_create_a_sequence_without_putting_all_items_into_memory() {
         Sequence sequence = new Sequence(4, 10);
+        for (Integer s: sequence) {
+           System.out.println(s);
+        }
+        for (Integer i: sequence) {
+            System.out.println(i);
+        }
+        //MultipleInterator
+        //Keep State
         assertIterableEquals(Arrays.asList(4, 5, 6, 7, 8, 9), sequence);
     }
 
@@ -50,14 +54,16 @@ class CollectionsTest {
         staff.add("Carl");
 
         ListIterator<String> iterator = staff.listIterator();
-        iterator.next();
+        iterator.next();//Bob
         iterator.add("Juliet");
-        iterator.previous();
+        assertEquals("Juliet",iterator.previous());
         iterator.remove();
+        assertEquals("Bob",iterator.next());
 
         // TODO: please modify the following code to pass the test
+        //
         // <--start
-        final List<String> expected = Arrays.asList("I", "Don't", "Know");
+        final List<String> expected = Arrays.asList("Amy", "Bob", "Carl");
         // --end-->
 
         assertIterableEquals(expected, staff);
@@ -66,14 +72,13 @@ class CollectionsTest {
     @Test
     void should_generate_distinct_sequence_on_the_fly() {
         // NOTE: This test may execute for a while. But it is okay if your impl is correct.
-        final int oneGagaChars = 1024 * 1024 * 1024;
+        final int oneGagaChars = 1024 ;//* 1024 * 1024;
         RandomCharacterIterable characters = new RandomCharacterIterable(
             oneGagaChars,
             new Character[]{'a', 'b'});
 
         List<Character> distinct = new DistinctIterable<>(characters).toList();
         distinct.sort(Character::compareTo);
-
         assertIterableEquals(Arrays.asList('a', 'b'), distinct);
     }
 
@@ -85,11 +90,12 @@ class CollectionsTest {
         }
 
         List<Integer> subList = integers.subList(3, 10);
+        System.out.println(subList.getClass());
         subList.clear();
 
         // TODO: please modify the following code to pass the test
         // <--start
-        final List<Integer> expected = Arrays.asList(0, 0, 0);
+        final List<Integer> expected = Arrays.asList(0, 1, 2, 10, 11);
         // --end-->
 
         assertIterableEquals(expected, integers);
