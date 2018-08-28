@@ -2,12 +2,16 @@ package com.cultivation.javaBasic;
 
 import com.cultivation.javaBasic.showYourIntelligence.StackFrameHelper;
 import com.cultivation.javaBasic.util.ClosableStateReference;
+import com.cultivation.javaBasic.util.ClosableWithException;
+import com.cultivation.javaBasic.util.ClosableWithoutException;
 import com.cultivation.javaBasic.util.MyClosableType;
 import com.cultivation.javaBasic.showYourIntelligence.StringFormatException;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -80,6 +84,29 @@ class ExceptionTest {
         System.out.println("done2 = " + done2);
 
     }*/
+
+    @SuppressWarnings({"EmptyTryBlock", "unused"})
+    @Test
+    void should_call_closing_even_if_exception_throws() throws Exception {
+        ArrayList<String> logger = new ArrayList<>();
+
+        try {
+            try (AutoCloseable withoutThrow = new ClosableWithoutException(logger);
+                 AutoCloseable withThrow = new ClosableWithException(logger)) {
+            }
+        } catch (Exception e) {
+            // It is okay!
+        }
+
+        // TODO: please modify the following code to pass the test
+        // <--start
+        final String[] expected = {};
+        // --end-->
+
+        assertArrayEquals(
+            expected,
+            logger.toArray());
+    }
 
     @Test
     void should_get_method_name_in_stack_frame() {
