@@ -1,9 +1,11 @@
 
 # summary 
 
+[TOC]
+
 ## 1.Integer
 
-##### 1.Primitive Data Types原生数据类型(共8种)
+### 1.Primitive Data Types原生数据类型(共8种)
  
 [官方文档](https://docs.oracle.com/javase/tutorial/java/nutsandbolts/datatypes.html)
  
@@ -18,7 +20,7 @@ double|64-bit|
 boolean|1-bit|true和false|
 char|16-bit|\u0000(or 0) |\uffff (or 65,535 inclusive)
 
-##### 2.原生类型的默认值Default Values
+#### 2.原生类型的默认值Default Values
 
 Data Type  |  Default Value (for fields) | 
 ------- | ------ | 
@@ -47,7 +49,7 @@ String[] strings = new String[2];
 assertEquals(null, strings[0]);
 ```
 
-##### 3.以Integer为例解释Integer的二进制表示法
+### 3.以Integer为例解释Integer的二进制表示法
 
 最小值为`0x80000000`，最大值为`0x7fffffff`，因为最高位是符号位。
 int型为4字节。在计算机内部数值的二进制表示，有正码、反码和补码。一般采用二进制补码进行表示和运算,`MIN_VALUE = 0x80000000` 和 `MAX_VALUE = 0x7fffffff` 就是补码表示的Integer的最小值(-2^31)和最大值(2^31-1)。
@@ -74,11 +76,11 @@ int型为4字节。在计算机内部数值的二进制表示，有正码、反�
 补码：1000 0000 0000 0000 0000 0000 0000 0000
 ```
 
-##### 4.十六进制表示数值的时候，默认是int。
+### 4.十六进制表示数值的时候，默认是int。
 
 	assertEquals((short) 0x8000, Short.MIN_VALUE);
 	
-##### 5.十六进制数表示数值的时候的特例
+### 5.十六进制数表示数值的时候的特例
 
 ```
 assertTrue(-0x8000_0000 < 0);
@@ -86,7 +88,7 @@ assertEquals(0x1, 1);
 assertEquals(-0x1, -1);
 ```
 
-##### 6.关于数值的溢出问题
+### 6.关于数值的溢出问题
 
 最大值加1或者最小值减1后会溢出。两个符号相同的数相加才可能溢出。
 为了防止溢出可以使用`Math.addExact()`方法。
@@ -99,7 +101,7 @@ assertEquals(0x0000_0000, 0xffff_ffff + 1);
 assertEquals(0x8000_0000 + 0xffff_ffff, 0x7fff_ffff);
 ```
 
-##### 7.其他
+### 7.其他
 
 - `int`转`short`的时候高位直接被舍弃，没有符号位。
 - 16进制表示法`0x1234_5678`中间的下划线无意义，便于阅读。
@@ -107,7 +109,7 @@ assertEquals(0x8000_0000 + 0xffff_ffff, 0x7fff_ffff);
 
 ## 2.Floating
 
-##### 不同类型的数值之间的转换表
+### 不同类型的数值之间的转换表
 
 `显`代表需要显式转换，`隐`代表可以隐式转换。`X`代表自己本身。
 
@@ -122,7 +124,7 @@ double|显|显|显|显|显|X
 
 ## 3.Char
 
-##### Java转义字符Escape Sequences
+### Java转义字符Escape Sequences
 
 [官网文档](https://docs.oracle.com/javase/tutorial/java/data/characters.html)
 
@@ -137,7 +139,7 @@ Escape Sequence|Description
 \"	|Insert a double quote character in the text at this point.
 \\	|Insert a backslash character in the text at this point.
 
-##### ASCII码和Unicode
+### ASCII码和Unicode
 
 `ASCII`码是美国于上个世纪60年代制定的一套字符编码方式，
 ASCII 码一共规定了128个字符的编码，这128个符号（包括32个不能打印出来的控制符号），只占用了一个字节的后面7位，最前面的一位统一规定为0。  
@@ -145,7 +147,7 @@ ASCII 码一共规定了128个字符的编码，这128个符号（包括32个不
 
 ## 4.Boolean
 
-##### Java运算符优先级Operator Precedence
+### Java运算符优先级Operator Precedence
 
 [官方文档](https://docs.oracle.com/javase/tutorial/java/nutsandbolts/operators.html)
 
@@ -166,7 +168,7 @@ logical OR| `\|\|`
 ternary|	`? :`
 assignment|	`= += -= *= /= %= &= ^= \|= <<= >>= >>>=`
 
-##### BooleanOperators
+### BooleanOperators
 
 boolean a, b;  
 
@@ -182,7 +184,7 @@ a ^ b|boolean logical exclusive OR|
 >For ^, the result value is true if the operand values are different; otherwise, the result is false.  
 >For |, the result value is false if both operand values are false; otherwise, the result is true.
 
-##### 证明与&或\|非~的操作顺序
+### 证明与&或\|非~的操作顺序
 
 ```
 final int value1 = ~0xffff_0000 & 0xffff_0000;
@@ -202,7 +204,7 @@ assertEquals(0x0000_ff00, value4);
 
 ## 5.Object
 
-##### Object中的equals()
+### Object中的equals()
 
 [官方文档](https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html#equals-java.lang.Object-)
 
@@ -216,7 +218,7 @@ The equals method implements an equivalence relation on non-null object referenc
 - It is consistent: for any non-null reference values x and y, multiple invocations of x.equals(y) consistently return true or consistently return false, provided no information used in equals comparisons on the objects is modified.
 - For any non-null reference value x, x.equals(null) should return false.
 
-##### Java中比较相等的方式
+### Java中比较相等的方式
 
 java中的数据类型，可分为两类： 
   
@@ -227,7 +229,7 @@ java中的数据类型，可分为两类：
   对于复合数据类型之间进行equals比较，在没有覆写equals方法的情况下，他们之间的比较还是基于他们在内存中的存放位置的地址值的，因为Object的equals方法也是用双等号（==）进行比较的，所以比较后的结果跟双等号（==）的结果相同。  
 - 一致性的强弱：Identity > Equality相等性 > Hashcode
 
-##### 变长参数
+### 变长参数
 
 {...1, 2, 3} => [1, 2, 3]
 可变参数==数组参数？ 在带可变参数的方法体时，读取可变参数列表时，就是以数组的方式来读取。  
@@ -239,7 +241,7 @@ java中的数据类型，可分为两类：
 - JDK不允许存在，带相同参数类型列表（Type List）的参数列表的方法在同一类中重载。
 - 当可变参数方法与不带参数的方法重载时，JDK默认调用的是无参数的方法。若类中没有定义无参数的方法，则会调用可变参数的方法。  
 
-##### 代码块
+### 代码块
 
 - 在在类中直接定义没有任何修饰符、前缀、后缀的代码块即为构造代码块。一个类必须至少有一个构造函数，构造函数在生成对象时被调用。  
 - 静态代码块，它是随着类的加载而被执行，只要类被加载了就会执行，而且只会加载一次，主要用于给类进行初始化。  
@@ -248,9 +250,9 @@ java中的数据类型，可分为两类：
 通过上面的分析，他们三者的执行顺序应该为：静态代码块 > 构造代码块 > 构造函数。  
 - field的初始化顺序是由它在代码中的位置决定的。构造代码块一定是在构造函数之前执行。
 
-#### Java中的Override重写与Overload重载
+### Java中的Override重写与Overload重载
 
-##### Override:重写
+#### Override:重写
 
 [官方文档](https://docs.oracle.com/javase/tutorial/java/IandI/override.html)
   
@@ -267,7 +269,7 @@ Override:重写是子类对父类的允许访问的方法的实现过程进行�
 - 构造方法不能被重写。
 - 如果不能继承一个方法，则不能重写这个方法。
 
-##### Overload:重载
+### Overload:重载
 
 重载(overloading) 是在一个类里面，方法名字相同，而参数不同。返回类型可以相同也可以不同。
 每个重载的方法（或者构造函数）都必须有一个独一无二的参数类型列表。
@@ -296,7 +298,7 @@ Unicode的编码空间从U+0000到U+10FFFF，共有1,112,064个码位（code poi
 第一个Unicode平面（码位从U+0000至U+FFFF）包含了最常用的字符。该平面被称为基本多语言平面，缩写为BMP（Basic Multilingual Plane, BMP）。UTF-16与UCS-2编码这个范围内的码位为16比特长的单个码元，数值等价于对应的码位. BMP中的这些码位是仅有的可以在UCS-2中表示的码位。
 辅助平面（Supplementary Planes）中的码位，在UTF-16中被编码为一对16比特长的码元（即32位,4字节），称作代理对（surrogate pair），具体方法是：
 
-##### UTF-16解码   
+#### UTF-16解码   
 
 lead | trail |	DC00|	DC01	|   … |  	DFFF
 ---| ---| ---| ---| ---| ---
@@ -337,20 +339,20 @@ UTF-16比起UTF-8，好处在于大部分字符都以固定长度的字节（2�
 
 [原文链接](https://docs.oracle.com/javase/tutorial/java/IandI/createinterface.html)
 
-#### Object
+### Object
 
 - 通过`super`关键字可以调用父类的方法。如果子类的构造函数不显式调用父类的构造函数，编译器会自动调用父类的无参构造函`constructor chaining`。如果父类没有无参构造函数，编译器会报错`compile-time error`。
 -  没有父类的类默认继承自Object类。子类可继承所有父类的成员，除了构造函数。
 -  静态方法与class绑定，而不是object。
   
-##### 类的方法和接口方法有冲突时
+#### 类的方法和接口方法有冲突时
   
 - 实例方法优先于接口方法。
 - 最近继承原则。`the most derived` 
 - 显示声明你要调用哪个接口的方法。`super`关键字。
 - 从类继承的实例方法可以重写接口中的抽象方法。
 
-#### Interface
+### Interface
 
 - 接口作用：规范行为。
 - 接口为public，不声明的话就是package-accessible。
@@ -366,7 +368,7 @@ UTF-16比起UTF-8，好处在于大部分字符都以固定长度的字节（2�
 - 一个lambda表达式capture的变量的范围可以从它被的定义的范围扩展到它被使用的范围。
 - 闭包，函数本身加运行环境。闭包可以捕获闭包变量，本地变量，this关键字，定义时this指向的东西。捕获定义时的上下文。
 
-##### 常用的接口
+#### 常用的接口
   
 - Consumer
 - Supplier
