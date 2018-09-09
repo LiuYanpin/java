@@ -1,8 +1,6 @@
 
 # summary 
 
-[TOC]
-
 ## 1.Integer
 
 ### 1.Primitive Data Types原生数据类型(共8种)
