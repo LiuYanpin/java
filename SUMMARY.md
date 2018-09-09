@@ -1,7 +1,10 @@
 
-#summary
+#summary 
+
 ##1.Integer
-#####1.Primitive Data Types原生数据类型(共8种) 
+
+#####1.Primitive Data Types原生数据类型(共8种)
+ 
 [官方文档](https://docs.oracle.com/javase/tutorial/java/nutsandbolts/datatypes.html)
  
  类型     | 位数|最小值|最大值
@@ -16,6 +19,7 @@ boolean|1-bit|true和false|
 char|16-bit|\u0000(or 0) |\uffff (or 65,535 inclusive)
 
 #####2.原生类型的默认值Default Values
+
 Data Type  |  Default Value (for fields) | 
 ------- | ------ | --- |
 byte|0
@@ -44,6 +48,7 @@ assertEquals(null, strings[0]);
 ```
 
 #####3.以Integer为例解释Integer的二进制表示法
+
 最小值为`0x80000000`，最大值为`0x7fffffff`，因为最高位是符号位。
 int型为4字节。在计算机内部数值的二进制表示，有正码、反码和补码。一般采用二进制补码进行表示和运算,`MIN_VALUE = 0x80000000` 和 `MAX_VALUE = 0x7fffffff` 就是补码表示的Integer的最小值(-2^31)和最大值(2^31-1)。
 一个 Integer 类型占 4 字节，一个字节占 8 位二进制码，因此一个 Integer 总共占 32 位二进制码。去除第一位的符号位，剩下 31 位来表示数值。
@@ -70,9 +75,11 @@ int型为4字节。在计算机内部数值的二进制表示，有正码、反�
 ```
 
 #####4.十六进制表示数值的时候，默认是int。
+
 	assertEquals((short) 0x8000, Short.MIN_VALUE);
 	
 #####5.十六进制数表示数值的时候的特例
+
 ```
 assertTrue(-0x8000_0000 < 0);
 assertEquals(0x1, 1);
@@ -80,6 +87,7 @@ assertEquals(-0x1, -1);
 ```
 
 #####6.关于数值的溢出问题
+
 最大值加1或者最小值减1后会溢出。两个符号相同的数相加才可能溢出。
 为了防止溢出可以使用`Math.addExact()`方法。
 ```
@@ -92,6 +100,7 @@ assertEquals(0x8000_0000 + 0xffff_ffff, 0x7fff_ffff);
 ```
 
 #####7.其他
+
 - `int`转`short`的时候高位直接被舍弃，没有符号位。
 - 16进制表示法`0x1234_5678`中间的下划线无意义，便于阅读。
 [官方文档](https://docs.oracle.com/javase/8/docs/technotes/guides/language/underscores-literals.html)  
@@ -99,6 +108,7 @@ assertEquals(0x8000_0000 + 0xffff_ffff, 0x7fff_ffff);
 ##2.Floating
 
 #####不同类型的数值之间的转换表
+
 `显`代表需要显式转换，`隐`代表可以隐式转换。`X`代表自己本身。
 
 form/to|byte|short|int|long|float|double
@@ -113,6 +123,7 @@ double|显|显|显|显|显|X
 ##3.Char
 
 #####Java转义字符Escape Sequences
+
 [官网文档](https://docs.oracle.com/javase/tutorial/java/data/characters.html)
 
 Escape Sequence|Description
@@ -127,12 +138,15 @@ Escape Sequence|Description
 \\	|Insert a backslash character in the text at this point.
 
 #####ASCII码和Unicode
+
 `ASCII`码是美国于上个世纪60年代制定的一套字符编码方式，
 ASCII 码一共规定了128个字符的编码，这128个符号（包括32个不能打印出来的控制符号），只占用了一个字节的后面7位，最前面的一位统一规定为0。  
 `Unicode`将世界上所有的符号都纳入其中。这是一种所有符号的编码。`Unicode` 只是一个符号集，它只规定了符号的二进制代码，却没有规定这个二进制代码应该如何存储。
 
 ##4.Boolean
+
 #####Java运算符优先级Operator Precedence
+
 [官方文档](https://docs.oracle.com/javase/tutorial/java/nutsandbolts/operators.html)
 
 Operators|	Precedence
@@ -153,6 +167,7 @@ ternary|	`? :`
 assignment|	`= += -= *= /= %= &= ^= \|= <<= >>= >>>=`
 
 #####BooleanOperators
+
 boolean a, b;  
 
 Operation |Meaning|Note
@@ -168,6 +183,7 @@ a ^ b|boolean logical exclusive OR|
 >For |, the result value is false if both operand values are false; otherwise, the result is true.
 
 #####证明与&或\|非~的操作顺序
+
 ```
 final int value1 = ~0xffff_0000 & 0xffff_0000;
 //先~的话结果是：0x0000_0000, 先&的话结果是：0x0000_ffff
@@ -187,6 +203,7 @@ assertEquals(0x0000_ff00, value4);
 ##5.Object
 
 #####Object中的equals()
+
 [官方文档](https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html#equals-java.lang.Object-)
 
 `public boolean equals(Object obj)`  
@@ -200,6 +217,7 @@ The equals method implements an equivalence relation on non-null object referenc
 - For any non-null reference value x, x.equals(null) should return false.
 
 #####Java中比较相等的方式
+
 java中的数据类型，可分为两类： 
   
 - 基本数据类型，也称原始数据类型。byte,short,char,int,long,float,double,boolean 
@@ -210,6 +228,7 @@ java中的数据类型，可分为两类：
 - 一致性的强弱：Identity > Equality相等性 > Hashcode
 
 #####变长参数
+
 {...1, 2, 3} => [1, 2, 3]
 可变参数==数组参数？ 在带可变参数的方法体时，读取可变参数列表时，就是以数组的方式来读取。  
 [官方文档](https://docs.oracle.com/javase/8/docs/technotes/guides/language/varargs.html)
@@ -221,6 +240,7 @@ java中的数据类型，可分为两类：
 - 当可变参数方法与不带参数的方法重载时，JDK默认调用的是无参数的方法。若类中没有定义无参数的方法，则会调用可变参数的方法。  
 
 #####代码块
+
 - 在在类中直接定义没有任何修饰符、前缀、后缀的代码块即为构造代码块。一个类必须至少有一个构造函数，构造函数在生成对象时被调用。  
 - 静态代码块，它是随着类的加载而被执行，只要类被加载了就会执行，而且只会加载一次，主要用于给类进行初始化。  
 - 构造代码块，每创建一个对象时就会执行一次，且优先于构造函数，主要用于初始化不同对象共性的初始化内容和初始化实例环境。  
@@ -229,8 +249,11 @@ java中的数据类型，可分为两类：
 - field的初始化顺序是由它在代码中的位置决定的。构造代码块一定是在构造函数之前执行。
 
 ####Java中的Override重写与Overload重载
+
 #####Override:重写
-[官方文档](https://docs.oracle.com/javase/tutorial/java/IandI/override.html)  
+
+[官方文档](https://docs.oracle.com/javase/tutorial/java/IandI/override.html)
+  
 Override:重写是子类对父类的允许访问的方法的实现过程进行重新编写, 返回值和形参都不能改变。
 - 参数列表必须完全与被重写方法的相同；
 - 返回类型必须完全与被重写方法的返回类型相同；
@@ -245,6 +268,7 @@ Override:重写是子类对父类的允许访问的方法的实现过程进行�
 - 如果不能继承一个方法，则不能重写这个方法。
 
 #####Overload:重载
+
 重载(overloading) 是在一个类里面，方法名字相同，而参数不同。返回类型可以相同也可以不同。
 每个重载的方法（或者构造函数）都必须有一个独一无二的参数类型列表。
 
@@ -256,8 +280,11 @@ Override:重写是子类对父类的允许访问的方法的实现过程进行�
 - 无法以返回值类型作为重载函数的区分标准。
 
 ##6.String
+
 [维基百科](https://zh.wikipedia.org/wiki/UTF-16)
+
 ###UTF-16
+
 UTF-16是Unicode字符编码五层次模型的第三层：字符编码表（Character Encoding Form，也称为"storage format"）的一种实现方式。即把Unicode字符集的抽象码位映射为16位长的整数（即码元）的序列，用于数据存储或传递。Unicode字符的码位，需要1个或者2个16位长的码元来表示，因此这是一个变长表示。
 
 UTF是"Unicode/UCS Transformation Format"的首字母缩写，即把Unicode字符转换为某种格式之意。UTF-16正式定义于ISO/IEC 10646-1的附录C，而RFC2781也定义了相似的做法。
@@ -265,6 +292,7 @@ UTF是"Unicode/UCS Transformation Format"的首字母缩写，即把Unicode字�
 Unicode的编码空间从U+0000到U+10FFFF，共有1,112,064个码位（code point）可用来映射字符. Unicode的编码空间可以划分为17个平面（plane），每个平面包含216（65,536）个码位。17个平面的码位可表示为从U+xx0000到U+xxFFFF，其中xx表示十六进制值从0016到1016，共计17个平面。第一个平面称为基本多语言平面（Basic Multilingual Plane, BMP），或称第零平面（Plane 0）。其他平面称为辅助平面（Supplementary Planes）。基本多语言平面内，从U+D800到U+DFFF之间的码位区块是永久保留不映射到Unicode字符。UTF-16就利用保留下来的0xD800-0xDFFF区块的码位来对辅助平面的字符的码位进行编码。
 
 ####从U+0000至U+D7FF以及从U+E000至U+FFFF的码位
+
 第一个Unicode平面（码位从U+0000至U+FFFF）包含了最常用的字符。该平面被称为基本多语言平面，缩写为BMP（Basic Multilingual Plane, BMP）。UTF-16与UCS-2编码这个范围内的码位为16比特长的单个码元，数值等价于对应的码位. BMP中的这些码位是仅有的可以在UCS-2中表示的码位。
 辅助平面（Supplementary Planes）中的码位，在UTF-16中被编码为一对16比特长的码元（即32位,4字节），称作代理对（surrogate pair），具体方法是：
 
@@ -286,11 +314,13 @@ DBFF|	10FC00	|10FC01|	…	|10FFFF
 由于前导代理、后尾代理、BMP中的有效字符的码位，三者互不重叠，搜索是简单的：一个字符编码的一部分不可能与另一个字符编码的不同部分相重叠。这意味着UTF-16是自同步（self-synchronizing）:可以通过仅检查一个码元就可以判定给定字符的下一个字符的起始码元. 
 
 ####从U+D800到U+DFFF的码位
+
 Unicode标准规定U+D800..U+DFFF的值不对应于任何字符。
 
 但是在使用UCS-2的时代，U+D800..U+DFFF内的值被占用，用于某些字符的映射。但只要不构成代理对，许多UTF-16编码解码还是能把这些不匹配Unicode标准的字符映射正确的辨识、转换成合规的码元[2].按照Unicode标准，这种码元序列本来应算作编码错误。
 
 ####示例：
+
 例如U+10437编码:
 
 0x10437减去0x10000,结果为0x00437,二进制为0000 0000 0100 0011 0111。  
@@ -299,24 +329,29 @@ Unicode标准规定U+D800..U+DFFF的值不对应于任何字符。
 添加0xDC00到下值，以形成低位：0xDC00 + 0x0037 = 0xDC37。  
 
 ####UTF-16与UCS-2的关系
+
 UTF-16可看成是UCS-2的父集。在没有辅助平面字符（surrogate code points）前，UTF-16与UCS-2所指的是同一的意思。但当引入辅助平面字符后，就称为UTF-16了。现在若有软件声称自己支持UCS-2编码，那其实是暗指它不能支持在UTF-16中超过2字节的字集。对于小于0x10000的UCS码，UTF-16编码就等于UCS码。
 UTF-16比起UTF-8，好处在于大部分字符都以固定长度的字节（2字节）存储，但UTF-16却无法兼容于ASCII编码。
 
 ##7.Object与Interface
+
 [原文链接](https://docs.oracle.com/javase/tutorial/java/IandI/createinterface.html)
 
 ####Object
+
 - 通过`super`关键字可以调用父类的方法。如果子类的构造函数不显式调用父类的构造函数，编译器会自动调用父类的无参构造函`constructor chaining`。如果父类没有无参构造函数，编译器会报错`compile-time error`。
 -  没有父类的类默认继承自Object类。子类可继承所有父类的成员，除了构造函数。
 -  静态方法与class绑定，而不是object。
   
-#####类的方法和接口方法有冲突时  
+#####类的方法和接口方法有冲突时
+  
 - 实例方法优先于接口方法。
 - 最近继承原则。`the most derived` 
 - 显示声明你要调用哪个接口的方法。`super`关键字。
 - 从类继承的实例方法可以重写接口中的抽象方法。
 
 ####Interface
+
 - 接口作用：规范行为。
 - 接口为public，不声明的话就是package-accessible。
 - abstract methods, default methods, and static methods. 接口可以包括方法签名，默认方法，静态方法和常量。只有默认方法和静态方法才能有方法体。
@@ -324,13 +359,15 @@ UTF-16比起UTF-8，好处在于大部分字符都以固定长度的字节（2�
 - default方法可以让你在接口中增加新功能。当你继承一个包含default方法的接口时：若不重写，就默认继承了该方法，可重新定义该方法为抽象方法，可重写该方法（override）。 
 
 ##8.Lambda
+
 - 本质上是一个匿名类。
 - Lambda中的变量不可改变。local variables referenced from a lambda expression must be final or effectively final
 - 定义时的环境，直接引用。
 - 一个lambda表达式capture的变量的范围可以从它被的定义的范围扩展到它被使用的范围。
 - 闭包，函数本身加运行环境。闭包可以捕获闭包变量，本地变量，this关键字，定义时this指向的东西。捕获定义时的上下文。
 
-#####常用的接口  
+#####常用的接口
+  
 - Consumer
 - Supplier
 - Function
@@ -338,6 +375,7 @@ UTF-16比起UTF-8，好处在于大部分字符都以固定长度的字节（2�
 - BiFunction
 
 ##9.Reflection
+
 - class就是一些类的描述信息。
 - 通过类名获取class`Employee.class`
 - 注意`getMethods()`和`getDeclaredMethods()`的区别
