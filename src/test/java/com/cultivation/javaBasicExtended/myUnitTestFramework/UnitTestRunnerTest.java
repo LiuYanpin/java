@@ -6,6 +6,7 @@ import com.cultivation.javaBasicExtended.myUnitTestFramework.exampleTests.WithOn
 import com.cultivation.javaBasicExtended.myUnitTestFramework.exampleTests.WithoutTestMethod;
 import org.junit.jupiter.api.Test;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;

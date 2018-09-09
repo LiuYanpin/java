@@ -28,7 +28,7 @@ class DistinctIterator<E> implements Iterator<E> {
     // <--start
     @SuppressWarnings({"FieldCanBeLocal", "unused"})
     private final Iterator<E> iterator;
-    private Set<E> set = new HashSet<>(20);
+    private Set<E> currentSet = new HashSet<>(20);
     private int currentIndex = 0;
     private E currentNumber;
     private int size;
@@ -42,9 +42,11 @@ class DistinctIterator<E> implements Iterator<E> {
     public boolean hasNext() {
         currentNumber = next();
         while (hasNext()) {
-            if (set.contains(currentNumber)){
-
+            if (currentSet.contains(currentNumber)){
+                return false;
             }
+            currentSet.add(currentNumber);
+            return true;
         }
         currentIndex++;
         return currentIndex < size;
@@ -53,16 +55,6 @@ class DistinctIterator<E> implements Iterator<E> {
     @Override
     public E next() {
         return currentNumber;
-//        currentIndex++;
-//        if (hasNext()) {
-//            currentNumber = iterator.next();
-//            if (!set.contains(currentNumber)) {
-//                set.add(currentNumber);
-//            }
-//
-//            return currentNumber;
-//        }
-//        return null;
     }
     // --end->
 }

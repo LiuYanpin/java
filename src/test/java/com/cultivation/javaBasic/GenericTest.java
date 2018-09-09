@@ -118,12 +118,10 @@ class GenericTest {
 
     @Test
     void should_get_length() {
-//        assertEquals(5, toArray(5, (lenght) -> new String[lenght]));
         Class<?> itemClass = createArray(5).getClass().getComponentType();
+        String[] arrayString = toArray(5, (length -> new String[length]));
 
     }
-
-
 
     //生成一个array,接口创建array
     //返回T[]
@@ -168,7 +166,17 @@ class GenericTest {
         ((Pair)pair).setFirst(second);
         ((Pair)pair).setSecond(first);
     }
+    private static void swap4(Pair<?> pair) {
+        swapGenericType(pair);
+    }
 
+    private static <T> void swapGenericType(Pair<T> pair){
+        T first = pair.getFirst();
+        T second = pair.getSecond();
+
+        pair.setFirst(second);
+        pair.setSecond(first);
+    }
     @Test
     void should_swap_String() {
         Pair<Number> pair = new Pair<>(1, 2);
