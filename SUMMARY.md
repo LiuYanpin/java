@@ -18,7 +18,7 @@ double|64-bit|
 boolean|1-bit|true和false|
 char|16-bit|\u0000(or 0) |\uffff (or 65,535 inclusive)
 
-#### 2.原生类型的默认值Default Values
+### 2.原生类型的默认值Default Values
 
 Data Type  |  Default Value (for fields) | 
 ------- | ------ | 
@@ -250,7 +250,7 @@ java中的数据类型，可分为两类：
 
 ### Java中的Override重写与Overload重载
 
-#### Override:重写
+### Override:重写
 
 [官方文档](https://docs.oracle.com/javase/tutorial/java/IandI/override.html)
   
