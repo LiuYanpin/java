@@ -21,7 +21,7 @@ char|16-bit|\u0000(or 0) |\uffff (or 65,535 inclusive)
 ##### 2.原生类型的默认值Default Values
 
 Data Type  |  Default Value (for fields) | 
-------- | ------ | --- |
+------- | ------ | 
 byte|0
 short|0
 int	|0
