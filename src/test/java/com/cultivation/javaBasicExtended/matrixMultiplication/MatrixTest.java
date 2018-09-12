@@ -1,9 +1,12 @@
 package com.cultivation.javaBasicExtended.matrixMultiplication;
 
+import com.cultivation.javaBasicExtended.Difficulty;
+import com.cultivation.javaBasicExtended.DifficultyLevel;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@Difficulty(DifficultyLevel.EASY)
 class MatrixTest {
     @Test
     void should_throws_if_matrix_array_is_null() {
