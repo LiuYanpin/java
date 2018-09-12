@@ -271,20 +271,7 @@ class StringTest {
     private int[] getCodePointsFromString(String withSurrogatePairs) {
         // TODO: please implement the method to the pass the test
         // <--start
-        int len = withSurrogatePairs.codePointCount(0, withSurrogatePairs.length());
-        int[] result = new int[len];
-        try {
-            for (int i = 0; i < len; i++){
-                result[i] = withSurrogatePairs.codePointAt(i);
-            }
-            //System.out.println(new int[] {0x20B9F, (int)' ', (int)'i', (int)'s', (int)' ', (int)'f', (int)'u', (int)'n', (int)'n', (int)'y'});
-            Arrays.asList(result).stream().forEach(s -> System.out.println(s));
-            return result;
-        }catch (Exception e){
-            throw e;
-        }finally {
-            throw new NotImplementedException();
-        }
+        return withSurrogatePairs.codePoints().toArray();
         //
         //withSurrogatePairs.codePoints().toArray();
         // --end-->
